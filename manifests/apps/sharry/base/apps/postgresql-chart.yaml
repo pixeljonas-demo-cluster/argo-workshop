@@ -22,19 +22,11 @@ spec:
               username: sharry
               existingSecret: sharry-db-postgresql
               database: sharry
-        volumePermissions:
-          securityContext:
-            runAsUser: "auto"
-
-        securityContext:
-          enabled: false
-
-        shmVolume:
-          chmod:
+        primary:
+          podSecurityContext:
             enabled: false
-
-        containerSecurityContext:
-          enabled: false              
+          containerSecurityContext:
+            enabled: false
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

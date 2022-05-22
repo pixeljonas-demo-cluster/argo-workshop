@@ -14,7 +14,7 @@ spec:
   source:
     path: manifests/apps/sharry/base/apps
     repoURL: https://github.com/PixelJonas/argo-workshop.git
-    targetRevision: master
+    targetRevision: main
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
