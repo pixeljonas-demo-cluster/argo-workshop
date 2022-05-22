@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sharry
+  namespace: user1-argo
+  annotations:
+    argocd.argoproj.io/sync-wave: "121"  
+spec:
+  destination:
+    namespace: user1-sharry
+    server: "https://kubernetes.default.svc"
+  source:
+    repoURL: "https://k8s-at-home.com/charts/"
+    targetRevision: 5.3.2
+    chart: sharry
+    helm:
+      values: |-
+
+        env:
+          - name: TZ
+            value: Europe/Berlin
+          - name: POSTGRESQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: sharry-db-postgresql
+                key: postgres-password
+          - name: SHARRY_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: sharry-credentials
+                key: admin-password
+          - name: SHARRY_INVITE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: sharry-credentials
+                key: invite-password
+
+        config: |
+          sharry.restserver {
+            bind {
+              address = "0.0.0.0"
+              port = {{ .Values.service.main.ports.http.port }}
+            }
+            webapp {
+              app-name = "Argo Share"
+              default-language = "de"
+              initial-theme = "dark"
+            }
+            backend {
+              jdbc {
+                url = "jdbc:postgresql://sharry-db-postgresql:5432/sharry"
+                user = "postgres"
+                password = ${POSTGRESQL_PASSWORD}
+              }
+              signup {
+                mode = "invite"
+                invite-password = ${SHARRY_INVITE_PASSWORD}
+                invite-time = "7 days"
+              }
+              auth {
+                fixed {
+                  enabled = true
+                  user = "admin"
+                  password = ${SHARRY_ADMIN_PASSWORD}
+                  order = 10
+                }
+              }
+            }
+          }
+
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

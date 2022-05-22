@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: argocd-userx
+spec:
+  applicationInstanceLabelKey: argocd.argoproj.io/argocd-userx
+  dex:
+    openShiftOAuth: true
+  rbac:    
+    policy: g, cluster-admins, role:admin
+    scopes: '[groups]'
+  server:
+    route:
+      enabled: true

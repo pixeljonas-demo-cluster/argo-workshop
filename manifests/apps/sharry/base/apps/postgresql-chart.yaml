@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sharry-db
+  namespace: user1-argo
+  annotations:
+    argocd.argoproj.io/sync-wave: "111"
+spec:
+  destination:
+    namespace: user1-sharry
+    server: https://kubernetes.default.svc
+  project: cluster-config
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: 11.2.5
+    helm:
+      values: |-
+        global:
+          postgresql:
+            auth:
+              username: sharry
+              existingSecret: sharry-db-postgresql
+              database: sharry
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
