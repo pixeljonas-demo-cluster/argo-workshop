@@ -55,9 +55,20 @@ Change the namespace for these both and the destination to your users namespaces
 `metadata.namespace: userX-argo`
 `spec.destination.namespace: userX-sharry`
 
-run `kustomize build ./manifests/apps/sharry/base` and verify, that your initial app has the correct namespaces
-run `kustomize build ./manifests/apps/sharry/base/apps` and verify that the other apps have the correct namespace as well
+run `oc apply --dry-run=client -o yaml -k ./manifests/apps/sharry/base` and verify, that your initial app has the correct namespaces
+run `oc apply --dry-run=client -o yaml -k ./manifests/apps/sharry/base/apps` and verify that the other apps have the correct namespace as well
+
+!Push these changes to your Repository!
 
 Apply the first App to the cluster
 
 `oc apply -k ./manifests/apps/sharry/base`
+
+Look at your ArgoCD Instance and manual sync everything.
+
+Expose your app
+`oc create route edge --service=sharry --insecure-policy='Redirect'`
+
+If we got more time:
+Turn On "Auto-Sync" manually -> Route will disappear because it is not in GIT
+Add the route to your git - see how it is created
