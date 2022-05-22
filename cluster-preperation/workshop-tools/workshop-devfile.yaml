@@ -1,0 +1,40 @@
+apiVersion: 1.0.0
+metadata:
+  generateName: openshift-workshop-
+projects:
+  - name: argo-workshop
+    source:
+      location: "https://github.com/pixeljonas/argo-workshop.git"
+      type: git
+components:
+  - mountSources: true
+    memoryLimit: 512M
+    type: dockerimage
+    volumes:
+      - name: workshop-preference
+        containerPath: /home/jboss/config
+    alias: openshift-tools
+    image: "quay.io/jjanz/workshop-tools:latest"
+    env:
+      - value: /home/jboss/config/odo/preference.yaml
+        name: GLOBALODOCONFIG
+      - value: /home/jboss/config/kube/kubeconfig.yaml
+        name: KUBECONFIG
+      - value: /home/jboss/config/helm
+        name: HELM_CONFIG_HOME
+      - value: /home/jboss/config/helm
+        name: HELM_CACHE_HOME
+  - id: redhat/vscode-openshift-connector/latest
+    type: chePlugin
+    alias: oc-tools
+  - id: redhat/vscode-xml/latest
+    type: chePlugin
+  - id: redhat/vscode-yaml/latest
+    type: chePlugin
+commands:
+  - name: Login to OpenShift (Terminal)
+    actions:
+      - workdir: "${CHE_PROJECTS_ROOT}"
+        type: exec
+        command: "oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true"
+        component: openshift-tools
