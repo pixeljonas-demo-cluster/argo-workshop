@@ -23,7 +23,6 @@ spec:
               existingSecret: sharry-db-postgresql
               database: sharry
         volumePermissions:
-          enabled: false
           securityContext:
             runAsUser: "auto"
 
