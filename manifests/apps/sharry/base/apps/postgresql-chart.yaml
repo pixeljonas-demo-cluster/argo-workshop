@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: user1-sharry
     server: https://kubernetes.default.svc
-  project: cluster-config
+  project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: postgresql
