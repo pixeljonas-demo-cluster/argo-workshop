@@ -2,19 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: sharry-app
-  namespace: user1-sharry
+  namespace: user5-argo
   annotations:
     argocd.argoproj.io/sync-wave: "101"
   labels:
     gitops.type: app-of-apps
 spec:
   destination:
-    namespace: user1-sharry
+    namespace: user5-sharry
     server: https://kubernetes.default.svc
   project: default
   source:
     path: manifests/apps/sharry/base/apps
-    repoURL: https://github.com/PixelJonas/argo-workshop.git
+    repoURL: https://github.com/pixeljonas-demo-cluster/argo-workshop.git
     targetRevision: main
   syncPolicy:
     syncOptions:

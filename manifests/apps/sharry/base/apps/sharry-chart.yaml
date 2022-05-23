@@ -2,12 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: sharry
-  namespace: user1-argo
+  namespace: user5-argo
   annotations:
     argocd.argoproj.io/sync-wave: "121"  
 spec:
   destination:
-    namespace: user1-sharry
+    namespace: user5-sharry
     server: "https://kubernetes.default.svc"
   source:
     repoURL: "https://k8s-at-home.com/charts/"
