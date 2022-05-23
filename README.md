@@ -7,7 +7,7 @@ Install the following Operator to your cluter to get started:
 - CodeReady Workspaces (for participant environments)
 - OpenShift GitOps / ArgoCD (to have participants provision their own ArgoCD Instances)
 
-Create a group for all participants and allow them to create ArgoCD Instances (You can find a Kustomize file at [cluster-preoeration/rolebindings](./cluster-preperation/rolebindings)).
+Create a group for all participants and allow them to create ArgoCD Instances (You can find a Kustomize file at [cluster-preperation/rolebindings](./cluster-preperation/rolebindings)).
 
 ## Workshop Agenda
 
@@ -19,10 +19,13 @@ Create a group for all participants and allow them to create ArgoCD Instances (Y
 
 - Fork this repository
 - Change the repo in the devfile
-
 - Login to CodeReady Workspaces
-- Copy the devfile to your CodeReady Workspace instance
-- Login to the console
+- Create a "Custom Workspace"
+- Copy [the devfile](./cluster-preperation/workshop-tools/workshop-devfile.yaml) to your CodeReady Workspace instance
+- Start the workspace and click on "Yes, I trust"
+- Start a new Terminal in the `openshift-tools`
+- Login to the cluster using your username
+  - `oc login https://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT --insecure-skip-tls-verify=true -p r3dh4t1! -u userX`
 - create a namespace for your `ArgoCD` Instance
   - `oc new-project userX-argo`
 

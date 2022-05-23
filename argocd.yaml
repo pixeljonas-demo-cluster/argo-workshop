@@ -6,9 +6,13 @@ spec:
   applicationInstanceLabelKey: argocd.argoproj.io/argocd-userx
   dex:
     openShiftOAuth: true
-  rbac:    
+  rbac:
     policy: g, cluster-admins, role:admin
-    scopes: '[groups]'
+    scopes: "[groups]"
   server:
+    insecure: true
     route:
       enabled: true
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
