@@ -4,7 +4,7 @@ metadata:
 projects:
   - name: argo-workshop
     source:
-      location: "https://github.com/pixeljonas/argo-workshop.git"
+      location: "https://github.com/pixeljonas-demo-cluster/argo-workshop.git"
       type: git
 components:
   - mountSources: true
