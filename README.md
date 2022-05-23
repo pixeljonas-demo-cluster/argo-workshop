@@ -37,7 +37,7 @@ Create a group for all participants and allow them to create ArgoCD Instances (Y
   `ssh-keygen -t ed25519 -C "userx@argo-workshop" -f /home/jboss/config/id_ed25519`
 - Start the SSH-Agent `eval "$(ssh-agent -s)"`
 - Add the created SSH-Key to the SSH-Agent `ssh-add /home/jboss/config/id_ed25519`
-- Copy the public SSH Key `cat /home/jboss/config/id_ed25519.pubo-workshop"`
+- Copy the public SSH Key `cat /home/jboss/config/id_ed25519.pub`
 - Add the key to your repo as "Deploy Key"
   - click on `Settings` -> `Security/Deploy keys` -> `Add deploy key`
   - Enter a title -> Paste the key -> click on `Allow write access`
