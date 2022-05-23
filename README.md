@@ -88,7 +88,7 @@ The initial App will deploy multiple other apps (one for PostgreSQL and one for 
   - `git push`
 
 - Apply the first App to the cluster
-  - `oc apply -k ./manifests/apps/sharry/base -n userX-sharry`
+  - `oc apply -k ./manifests/apps/sharry/base -n userX-argo`
 - Look at your ArgoCD Instance and manual sync everything.
 - Expose your app
   - `oc create route edge --service=sharry --insecure-policy='Redirect'`

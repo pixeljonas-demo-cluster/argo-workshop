@@ -6,3 +6,4 @@ resources:
   - postgresql-credentials.yaml
   - postgresql-chart.yaml
   - sharry-chart.yaml
+  - route.yaml
